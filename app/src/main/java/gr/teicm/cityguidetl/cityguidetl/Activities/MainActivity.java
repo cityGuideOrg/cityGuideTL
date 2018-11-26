@@ -1,18 +1,13 @@
 package gr.teicm.cityguidetl.cityguidetl.Activities;
 
 import android.Manifest;
-
-import android.content.Context;
 import android.content.pm.PackageManager;
-
 import android.os.Bundle;
-
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,16 +19,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.ArrayList;
 
 import gr.teicm.cityguidetl.cityguidetl.R;
+import gr.teicm.cityguidetl.cityguidetl.Sights;
 
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -43,36 +37,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     public static String data;
     String topFivePhotosParsed = "";
-
+    ArrayList<Sights> sightsArrayList=new ArrayList<>();
+    TextView locTextView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        locTextView= (TextView) findViewById(R.id.textView2);
 
         Button clickButton = (Button) findViewById(R.id.button_id);
         clickButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 jsonParse();
-                Context context = getApplicationContext();
-                CharSequence text = topFivePhotosParsed;
-                int duration = Toast.LENGTH_LONG;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-
+                for(Sights sight : sightsArrayList)
+                {
+                    addMarker(sight);
+                }
             }
         });
+
 
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
         }
-
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
@@ -81,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             // TODO: Consider calling
             return;
         }
-       // mMap.setMyLocationEnabled(true);
+
     }
 
     @Override
@@ -104,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.setMinZoomPreference(8);
         String lon="151";
         String lan="-34";
-        addMarker(googleMap, "", lan,lon);
 
     }
     @Override
@@ -140,19 +130,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.onLowMemory();
     }
 
-    public void addMarker(GoogleMap map,String name,String lan,String lon)
+    public void addMarker(Sights sight)
     {
-        LatLng latLng = new LatLng(Double.valueOf(lan),Double.valueOf(lon));
-        map.addMarker(new MarkerOptions().position(latLng).title(name));
-        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        LatLng latLng = new LatLng(Double.valueOf(sight.getLatitude()),Double.valueOf(sight.getLongitude()));
+        mMap.addMarker(new MarkerOptions().position(latLng));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        String Slatlag = String.valueOf(latLng.latitude) +","+ String.valueOf(latLng.longitude);
+        locTextView.setText(Slatlag);
     }
 
-    private  void jsonParse() //TODO make separate class for this
+    public void jsonParse() //TODO 1.make separate class for this 2.Take the town as parameter when list of supported cities is done
     {
         RequestQueue mQueue;
         mQueue=Volley.newRequestQueue(this);
         String URL="https://api.myjson.com/bins/960ti";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+        //String URL="http://10.0.2.2:8080/flickr/get/1";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL,null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 topFivePhotosParsed ="";
@@ -161,17 +154,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     for(int i =0;i<jsonTopFiveArray.length(); i++)
                     {
                         JSONObject topFivePhotos =jsonTopFiveArray.getJSONObject(i);
-
                         int totalPhotos = topFivePhotos.getInt("totalNearPhotos");
                         long id=topFivePhotos.getLong("id");
                         String longitude=topFivePhotos.getString("longitude");
                         String latitude=topFivePhotos.getString("latitude");
-                        topFivePhotosParsed+="Total Photos :" +String.valueOf(totalPhotos) + " ID: " + String.valueOf(id) + " Long:" + String.valueOf(longitude)+ " Lan:"+ String.valueOf(latitude) + "\n\n";
-
-                        addMarker(mMap,String.valueOf(id),latitude,longitude);
-
+                        Sights sights = new Sights(totalPhotos,id,longitude,latitude);
+                        sightsArrayList.add(sights);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -179,10 +168,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                System.out.println(error.getNetworkTimeMs());
             }
         });
         mQueue.add(request);
+
     }
 
 
