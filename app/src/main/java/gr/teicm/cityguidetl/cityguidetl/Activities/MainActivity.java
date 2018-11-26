@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     ArrayList<Sights> sightsArrayList=new ArrayList<>();
     TextView locTextView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
@@ -72,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             // TODO: Consider calling
             return;
         }
-
     }
 
     @Override
