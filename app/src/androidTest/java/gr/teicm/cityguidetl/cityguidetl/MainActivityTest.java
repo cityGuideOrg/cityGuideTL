@@ -1,4 +1,4 @@
-package gr.teicm.cityguidetl.cityguidetl.Activities;
+package gr.teicm.cityguidetl.cityguidetl;
 
 import android.os.SystemClock;
 import android.support.test.espresso.Espresso;
@@ -13,6 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import gr.teicm.cityguidetl.cityguidetl.Activities.MainActivity;
 import gr.teicm.cityguidetl.cityguidetl.R;
 
 import static android.support.test.espresso.action.ViewActions.click;
