@@ -1,6 +1,5 @@
 package gr.teicm.cityguidetl.cityguidetl.Controllers;
 
-public class Controller
-{
+public class Controller {
 
 }
