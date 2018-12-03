@@ -1,9 +1,13 @@
 package gr.teicm.cityguidetl.cityguidetl.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,16 +40,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final ListView listView = (ListView) findViewById(R.id.citiesList);
+
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080").addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
         cityService = retrofit.create(CityService.class);
         Call<ArrayList<City>> call = cityService.getCities();
+
+
 
         call.enqueue(new Callback<ArrayList<City>>() {
             @Override
             public void onResponse(Call<ArrayList<City>> call, Response<ArrayList<City>> response) {
                 ArrayList<City> cities = response.body();
                 listView.setAdapter(new CityListAdapter(MainActivity.this, cities));
+                Button sortButton = (Button) findViewById(R.id.sortButton);
+//                sortButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        alertBuilder.show();
+//                    }
+//                });
+
             }
 
             @Override
@@ -54,10 +69,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
      //   Intent intent = new Intent(this, PointsActivity.class);
      //   startActivity(intent);
 
     }
+
 
 
 

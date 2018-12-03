@@ -1,11 +1,13 @@
 package gr.teicm.cityguidetl.cityguidetl.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,6 +45,27 @@ public class PointsActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interesting_points_of_city);
 		//final CardView cardView = (CardView) findViewById(R.id.cardviewPoints);
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        String[] options = {"Popularity", "Distance"};
+        alertBuilder.setTitle("Sort By");
+		alertBuilder.setPositiveButton("hey", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+
+			}
+		});
+        alertBuilder.setSingleChoiceItems(options,-1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        Button sortButton = (Button) findViewById(R.id.sortButton);
+        sortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertBuilder.show();
+            }
+        });
 
 
 		final String city_id = String.valueOf(getIntent().getExtras().getInt("city_id"));
@@ -70,7 +94,7 @@ public class PointsActivity extends AppCompatActivity {
 
 			@Override
 			public void onFailure(Call<City> call, Throwable t) {
-
+				System.out.println("error");
 			}
 		});
 

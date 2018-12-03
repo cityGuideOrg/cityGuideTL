@@ -35,6 +35,7 @@ super(view);
 
 	List<Photos> points;
 
+
 	public PointsAdapter(List<Photos> points) {
 		this.points = points;
 
