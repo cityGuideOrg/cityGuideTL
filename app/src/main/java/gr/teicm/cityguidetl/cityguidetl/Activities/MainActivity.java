@@ -3,6 +3,7 @@ package gr.teicm.cityguidetl.cityguidetl.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,7 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private GoogleMap googleMap;
 	private MapView mapView;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
-    Retrofit retro;
+    public static Retrofit retro;
+    public static CityService cityService;
+
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.citiesList);
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080").addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
-        CityService cityService = retrofit.create(CityService.class);
+        cityService = retrofit.create(CityService.class);
         Call<ArrayList<City>> call = cityService.getCities();
 
         call.enqueue(new Callback<ArrayList<City>>() {
@@ -48,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
         });
-        Intent intent = new Intent(this, PointsActivity.class);
-        startActivity(intent);
+
+     //   Intent intent = new Intent(this, PointsActivity.class);
+     //   startActivity(intent);
 
     }
 

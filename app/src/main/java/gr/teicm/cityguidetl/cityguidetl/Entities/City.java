@@ -1,6 +1,7 @@
 package gr.teicm.cityguidetl.cityguidetl.Entities;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class City{
 
@@ -10,6 +11,20 @@ public class City{
 	private String latitude;
 	private String woe_name;
 	private String content;
+
+	private List<Photos> topFivePhotos;
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public List<Photos> getTopFivePhotos() {
+		return topFivePhotos;
+	}
+
+	public void setTopFivePhotos(List<Photos> topFivePhotos) {
+		this.topFivePhotos = topFivePhotos;
+	}
 
 
 	public City() {

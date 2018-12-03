@@ -30,4 +30,9 @@ public interface CityService {
 	@Headers({"Accept: application/json"})
 	@PUT("/city/{id}")
 	Call<City> updateCity(@Body City city, @Path("id") long id);
+
+	@Headers({"Accept: application/json"})
+	@GET("/flickr/{id}")
+	Call<City> getCityWithInterestingPlaces(@Path("id") long id);
+
 }

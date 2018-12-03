@@ -4,8 +4,8 @@ package gr.teicm.cityguidetl.cityguidetl.Entities;
 import java.math.BigDecimal;
 
 public class Point {
-	private Integer id;
-	private String pointName;
+	public Integer id;
+	public String pointName;
 	private BigDecimal longitude;
 	private BigDecimal latitude;
 
