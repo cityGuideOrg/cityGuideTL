@@ -7,34 +7,36 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import gr.teicm.cityguidetl.cityguidetl.R;
 
 public class LoginActivity extends AppCompatActivity {
-    Button bSignIn;
-    EditText etUsername;
-    EditText etPassword;
+    Button signIn_btn, signUp_btn;
+    EditText usernameET, passwordET;
+    TextView titleTV, usernameTV, passwordTV;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        bSignIn = findViewById(R.id.bSignIn);
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
-        bSignIn.setOnClickListener(new View.OnClickListener() {
+        signIn_btn = findViewById(R.id.signIn_btn);
+        signUp_btn = findViewById(R.id.signUp_btn);
+        usernameET = findViewById(R.id.usernameET);
+        passwordET = findViewById(R.id.passwordET);
+        titleTV = findViewById(R.id.titleTV);
+        usernameTV = findViewById(R.id.usernameTV);
+        passwordTV = findViewById(R.id.passwordTV);
+        signUp_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validate(etUsername.getText().toString(), etPassword.getText().toString());
+                validate(usernameET.getText().toString(), passwordET.getText().toString());
             }
         });
     }
 
-    public LoginActivity(Context context) {
-
-    }
     public String validate(String userName, String password) {
-        if (userName.equals("user") && password.equals("user"))
+        if (userName.equals("admin") && password.equals("admin"))
             return "Login was successful";
         else
             return "Invalid login!";
