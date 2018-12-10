@@ -89,4 +89,6 @@ public class Location implements ConnectionCallbacks, OnConnectionFailedListener
                 .addApi(LocationServices.API)
                 .build();
     }
+
+
 }
