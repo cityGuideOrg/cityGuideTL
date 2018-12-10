@@ -1,10 +1,32 @@
 package gr.teicm.cityguidetl.cityguidetl;
+
+
+
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.filters.LargeTest;
+import androidx.test.runner.AndroidJUnit4;
 import gr.teicm.cityguidetl.cityguidetl.Activities.MainActivity;
+import gr.teicm.cityguidetl.cityguidetl.Adapters.CityListAdapter;
+
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.toPackage;
+import static androidx.test.espresso.Espresso.*;
+import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
+
+import static androidx.test.espresso.intent.Intents.*;
+import static org.hamcrest.core.AllOf.allOf;
+
 
 
 @RunWith(AndroidJUnit4.class)
@@ -12,27 +34,33 @@ import gr.teicm.cityguidetl.cityguidetl.Activities.MainActivity;
 public class OnSelectCityTest {
 
 
-	private String mStringToBetyped;
+	private static final String MESSAGE = "This is a test";
+	private static final String PACKAGE_NAME = "com.example.myfirstapp";
 
+	/* Instantiate an IntentsTestRule object. */
 	@Rule
-	public ActivityTestRule<MainActivity> mActivityRule
-			= new ActivityTestRule<>(MainActivity.class);
-
-	@Before
-	public void initValidString() {
-		// Specify a valid string.
-		mStringToBetyped = "Espresso";
-	}
+	public IntentsTestRule<MainActivity> mIntentsRule =
+			new IntentsTestRule<>(MainActivity.class);
 
 	@Test
-	public void changeText_sameActivity() {
-		// Type text and then press the button.
-		onView(withId(R.id.editTextUserInput))
-				.perform(typeText(mStringToBetyped), closeSoftKeyboard());
-		onView(withId(R.id.changeTextBt)).perform(click());
+	public void verifyMessageSentToMessageActivity() {
 
-		// Check that the text was changed.
-		onView(withId(R.id.textToBeChanged))
-				.check(matches(withText(mStringToBetyped)));
+		// Types a message into a EditText element.
+//		onData(withId(R.id.citiesList))
+//				.perform(typeText(MESSAGE), closeSoftKeyboard());
+		//dinw id sto pointsA
+
+		
+		// Clicks a button to send the message to another
+		// activity through an explicit intent.
+//		onData(withId(R.id.)).perform(click());
+
+		// Verifies that the DisplayMessageActivity received an intent
+		// with the correct package name and message.
+//		intended(allOf(
+//				hasComponent(hasShortClassName(".DisplayMessageActivity")),
+//				toPackage(PACKAGE_NAME),
+//				hasExtra(MainActivity.EXTRA_MESSAGE, MESSAGE)));
+
 	}
 }

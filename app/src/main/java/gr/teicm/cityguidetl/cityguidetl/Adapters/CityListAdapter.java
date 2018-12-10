@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.net.ConnectException;
 import java.util.List;
 
 import gr.teicm.cityguidetl.cityguidetl.Activities.PointsActivity;
@@ -38,7 +39,6 @@ public class CityListAdapter extends ArrayAdapter<City> {
 
 		}
 		TextView textView = (TextView) row.findViewById(R.id.list_item_pagination_text);
-
 		City item = values.get(position);
 		String message = item.getWoe_name();
 		textView.setText(message);
@@ -46,13 +46,19 @@ public class CityListAdapter extends ArrayAdapter<City> {
 		row.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(context, PointsActivity.class);
 				City item = values.get(position);
-				intent.putExtra("city_id", item.getId());
-				context.startActivity(intent);
+				openPointsActivity(context, item);
 			}
 		});
 
 		return row;
 	}
+	private void openPointsActivity(Context context, City currentCity) {
+		Intent intent = new Intent(context, PointsActivity.class);
+		//check if the id is being sent to the PointActivity
+		intent.putExtra("city_id", currentCity.getId());
+		intent.putExtra("city_name", currentCity.getWoe_name());
+		context.startActivity(intent);
+	}
+
 }

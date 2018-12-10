@@ -22,22 +22,22 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
 		ImageView image;
 
 		public TextView text;
-
+		public TextView cityNameTextView;
 
 		public PointsViewAHolder(View view)  {
-super(view);
-
-	text = view.findViewById(R.id.pointName);
-	image = view.findViewById(R.id.pointImage);
+			super(view);
+			text = view.findViewById(R.id.pointName);
+			image = view.findViewById(R.id.pointImage);
+			cityNameTextView = view.findViewById(R.id.cityNameTextView);
 
 		}
 	}
 
 	List<Photos> points;
+	String cityName;
 
 	public PointsAdapter(List<Photos> points) {
 		this.points = points;
-
 	}
 
 	@NonNull
@@ -54,6 +54,7 @@ super(view);
 		Photos point = points.get(index);
 
 		viewHolder.text.setText(point.getLatitude().toString() + " " +  point.getLongitude().toString());
+
 	}
 
 	@Override

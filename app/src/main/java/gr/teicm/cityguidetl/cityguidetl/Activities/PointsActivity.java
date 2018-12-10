@@ -14,7 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -45,9 +48,10 @@ public class PointsActivity extends AppCompatActivity {
 
 
 		final String city_id = String.valueOf(getIntent().getExtras().getInt("city_id"));
-
+		final String city_name = String.valueOf(getIntent().getExtras().getString("city_name"));
 		Log.e("demo", city_id);
-
+		TextView cityNameTextView = findViewById(R.id.cityNameTextView);
+		cityNameTextView.setText(city_name);
 		findViewById(R.id.showMap)
 				.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
