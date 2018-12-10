@@ -17,7 +17,7 @@ import static org.hamcrest.core.IsAnything.anything;
 
 
 @RunWith(AndroidJUnit4.class)
-public class PointsActivityTest {
+public class MainActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule(MainActivity.class);
