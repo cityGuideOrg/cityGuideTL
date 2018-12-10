@@ -1,8 +1,13 @@
 package gr.teicm.cityguidetl.cityguidetl.Activities;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -36,6 +41,12 @@ public class MapActivity extends Activity {
 			@Override
 			public void onMapReady(final GoogleMap googleMap) {
 				Log.e("map ready", "asdasd");
+				if(ActivityCompat.checkSelfPermission(MapActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+
+				}
+				googleMap.setMyLocationEnabled(true);
+
+
 				MainActivity.cityService.getCityWithInterestingPlaces(Long.valueOf(city_id))
 				.enqueue(new Callback<City>() {
 					@Override
@@ -63,6 +74,11 @@ public class MapActivity extends Activity {
 		mapView.onStart();
 	}
 
+	}
 
 
-}
+
+
+
+
+
