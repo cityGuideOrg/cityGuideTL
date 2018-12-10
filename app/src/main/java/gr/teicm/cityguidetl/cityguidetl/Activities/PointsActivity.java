@@ -1,11 +1,18 @@
 package gr.teicm.cityguidetl.cityguidetl.Activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +22,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -37,11 +48,42 @@ import retrofit2.Response;
 public class PointsActivity extends AppCompatActivity {
 
 	RecyclerView recyclerView;
+	Location location;
+
+
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interesting_points_of_city);
 		//final CardView cardView = (CardView) findViewById(R.id.cardviewPoints);
+		LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+		LocationListener mLocationListener = new LocationListener() {
+			@Override
+			public void onLocationChanged(final Location location) {
+				//your code hereas
+				PointsActivity.this.location = location;
+			}
+
+			@Override
+			public void onStatusChanged(String s, int i, Bundle bundle) {
+
+			}
+
+			@Override
+			public void onProviderEnabled(String s) {
+
+			}
+
+			@Override
+			public void onProviderDisabled(String s) {
+
+			}
+		};
+		if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+
+		}
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,mLocationListener);
+
 
 
 		final String city_id = String.valueOf(getIntent().getExtras().getInt("city_id"));
@@ -51,7 +93,7 @@ public class PointsActivity extends AppCompatActivity {
 		findViewById(R.id.showMap)
 				.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
-						Log.e("onclick", "demo");
+						Log.e("onclick", location.toString());
 
 						Intent intent = new Intent(PointsActivity.this, MapActivity.class);
 							intent.putExtra("city_id", city_id);
