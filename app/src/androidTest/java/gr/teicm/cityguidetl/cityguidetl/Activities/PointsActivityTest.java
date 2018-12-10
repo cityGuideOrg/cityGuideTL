@@ -26,7 +26,7 @@ public class PointsActivityTest {
     @Test
     public void buttonClickScenario()
     {
-
+        SystemClock.sleep(1000);
         Espresso.onData(anything())
                 .inAdapterView(withId(R.id.citiesList))
                 .atPosition(0)
