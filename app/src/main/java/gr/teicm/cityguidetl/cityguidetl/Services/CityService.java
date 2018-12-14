@@ -35,4 +35,8 @@ public interface CityService {
 	@GET("/flickr/{id}")
 	Call<City> getCityWithInterestingPlaces(@Path("id") long id);
 
+	@Headers({"Accept: application/json"})
+	@GET("/flickr/{id}/{longitude}/{latitude}")
+	Call<City> getCityWithSortedByDistancePlaces(@Path("id") long id, @Path("longitude") double longitude, @Path("latitude") double latitude);
+
 }

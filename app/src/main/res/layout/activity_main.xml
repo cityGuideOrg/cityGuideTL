@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
@@ -53,7 +52,7 @@
         app:layout_constraintVertical_bias="0.976"
     />
 
-</LinearLayout>
+
 
     <ListView
         android:id="@+id/citiesList"

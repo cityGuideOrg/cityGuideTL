@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -34,6 +35,7 @@ import gr.teicm.cityguidetl.cityguidetl.Adapters.CityListAdapter;
 import gr.teicm.cityguidetl.cityguidetl.Adapters.PointsAdapter;
 import gr.teicm.cityguidetl.cityguidetl.Adapters.PointsGridAdapter;
 import gr.teicm.cityguidetl.cityguidetl.Entities.City;
+import gr.teicm.cityguidetl.cityguidetl.Entities.Photos;
 import gr.teicm.cityguidetl.cityguidetl.Entities.Point;
 import gr.teicm.cityguidetl.cityguidetl.R;
 import retrofit2.Call;
@@ -49,6 +51,10 @@ public class PointsActivity extends AppCompatActivity {
 
 	RecyclerView recyclerView;
 	Location location;
+	Button sortByDistanceButton;
+	private static final String[] LOCATION_PERMS={
+			Manifest.permission.ACCESS_FINE_LOCATION
+	};
 
 
 
@@ -56,6 +62,7 @@ public class PointsActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interesting_points_of_city);
 		//final CardView cardView = (CardView) findViewById(R.id.cardviewPoints);
+		sortByDistanceButton = (Button) findViewById(R.id.SortByDistanceButton);
 		LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
 		LocationListener mLocationListener = new LocationListener() {
 			@Override
@@ -79,8 +86,16 @@ public class PointsActivity extends AppCompatActivity {
 
 			}
 		};
-		if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+		if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+				PackageManager.PERMISSION_GRANTED &&
+				ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+						PackageManager.PERMISSION_GRANTED){
 
+		} else {
+			ActivityCompat.requestPermissions(this, new String[] {
+							Manifest.permission.ACCESS_FINE_LOCATION,
+							Manifest.permission.ACCESS_COARSE_LOCATION },1337
+					);
 		}
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,mLocationListener);
 
@@ -116,6 +131,25 @@ public class PointsActivity extends AppCompatActivity {
 			}
 		});
 
+		sortByDistanceButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				MainActivity.cityService.getCityWithSortedByDistancePlaces(Long.valueOf(city_id),location.getLongitude(),location.getLatitude())
+						.enqueue(new Callback<City>() {
+							@Override
+							public void onResponse(Call<City> call, Response<City> response) {
+
+								recyclerView.setAdapter(new PointsAdapter(new ArrayList<Photos>()));
+								recyclerView.setAdapter(new PointsAdapter(response.body().getTopFivePhotos()));
+							}
+
+							@Override
+							public void onFailure(Call<City> call, Throwable t) {
+
+							}
+						});
+			}
+		});
 
 
 
