@@ -15,6 +15,7 @@ import org.junit.runners.JUnit4;
 import gr.teicm.cityguidetl.cityguidetl.Activities.MainActivity;
 
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.core.IsAnything.anything;
@@ -41,6 +42,7 @@ public class SortByDistanceTest {
 
         Espresso.onView(withId(R.id.cardviewPoints))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
+
 
         SystemClock.sleep(1000);
 
