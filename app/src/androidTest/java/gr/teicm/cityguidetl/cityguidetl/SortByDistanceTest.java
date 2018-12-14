@@ -38,15 +38,13 @@ public class SortByDistanceTest {
                 .inAdapterView(withId(R.id.citiesList))
                 .atPosition(0)
                 .perform(click());
-        SystemClock.sleep(1000);
-
+        SystemClock.sleep(1000); //select Athens as city
 
         Espresso.onView(withId(R.id.SortByDistanceButton)).perform(click());
-        SystemClock.sleep(1000);
+        SystemClock.sleep(1000); //click Sort By Distance Button
 
         Espresso.onView(withId(R.id.cardviewPoints))
-                .check(matches(hasDescendant(withText(closestPoint))));
-
+                .check(matches(hasDescendant(withText(closestPoint)))); //check if closest point right
 
         SystemClock.sleep(1000);
 
