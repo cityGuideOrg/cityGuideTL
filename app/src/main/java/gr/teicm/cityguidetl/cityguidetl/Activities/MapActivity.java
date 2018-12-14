@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -48,6 +49,7 @@ public class MapActivity extends Activity {
 									o.position(new LatLng(photo.getLatitude(), photo.getLongitude()));
 
 									googleMap.addMarker(o);
+									googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(o.getPosition(), 12));
 								}
 							}
 					@Override

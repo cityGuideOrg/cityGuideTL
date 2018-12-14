@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final ListView listView = (ListView) findViewById(R.id.citiesList);
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080").addConverterFactory(GsonConverterFactory.create());
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("https://api.cityguide.badrishvili.com/").addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
         cityService = retrofit.create(CityService.class);
         Call<ArrayList<City>> call = cityService.getCities();
@@ -44,8 +44,15 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<ArrayList<City>>() {
             @Override
             public void onResponse(Call<ArrayList<City>> call, Response<ArrayList<City>> response) {
-                ArrayList<City> cities = response.body();
-                listView.setAdapter(new CityListAdapter(MainActivity.this, cities));
+                try {
+                    ArrayList<City> cities = response.body();
+                    listView.setAdapter(new CityListAdapter(MainActivity.this, cities));
+                }
+                catch(Exception e) {
+                    Toast.makeText(MainActivity.this, "exception thrown", Toast.LENGTH_SHORT).show();
+
+                }
+
             }
 
             @Override
