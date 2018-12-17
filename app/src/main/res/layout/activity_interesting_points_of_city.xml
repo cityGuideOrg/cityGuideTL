@@ -70,14 +70,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:text="Near You"
-                    android:textColor="#FFFFFF" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="29dp"
@@ -92,6 +84,18 @@
                     android:layout_marginEnd="26dp"
                     android:text="Favourites"
                     android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/SortByDistanceButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="Sort By Distance"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
             </RelativeLayout>
         <ImageView
             android:layout_alignParentRight="true"
@@ -105,6 +109,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:alignmentMode="alignMargins"
+            android:layout_gravity="center_horizontal"
             android:columnCount="2"
             android:columnOrderPreserved="false"
             android:rowCount="3">
