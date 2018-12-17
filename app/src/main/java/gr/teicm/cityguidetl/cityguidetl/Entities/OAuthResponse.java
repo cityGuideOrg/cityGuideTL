@@ -1,0 +1,27 @@
+package gr.teicm.cityguidetl.cityguidetl.Entities;
+
+public class OAuthResponse {
+
+	public OAuthResponse() {
+
+	}
+	public String getAccess_token() {
+		return access_token;
+	}
+
+	public void setAccess_token(String access_token) {
+		this.access_token = access_token;
+	}
+
+	public String getRefresh_token() {
+		return refresh_token;
+	}
+
+	public void setRefresh_token(String refresh_token) {
+		this.refresh_token = refresh_token;
+	}
+
+	String access_token;
+	String refresh_token;
+
+}

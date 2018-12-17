@@ -1,11 +1,15 @@
 package gr.teicm.cityguidetl.cityguidetl.Activities;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -97,4 +101,5 @@ public class PointsActivity extends AppCompatActivity {
 //			}
 //		});
 	}
+
 }

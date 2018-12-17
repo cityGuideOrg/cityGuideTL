@@ -16,6 +16,8 @@ import gr.teicm.cityguidetl.cityguidetl.Adapters.CityListAdapter;
 import gr.teicm.cityguidetl.cityguidetl.Entities.City;
 import gr.teicm.cityguidetl.cityguidetl.R;
 import gr.teicm.cityguidetl.cityguidetl.Services.CityService;
+import gr.teicm.cityguidetl.cityguidetl.Utilities.AuthenticatorInterceptor;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     public static Retrofit retro;
     public static CityService cityService;
 
+    public static String access_token;
+    public static String refresh_token;
+
     RecyclerView recyclerView;
 
     @Override
@@ -36,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final ListView listView = (ListView) findViewById(R.id.citiesList);
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("https://api.cityguide.badrishvili.com/").addConverterFactory(GsonConverterFactory.create());
+
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new AuthenticatorInterceptor()).build();
+
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080").client(client).addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
         cityService = retrofit.create(CityService.class);
         Call<ArrayList<City>> call = cityService.getCities();
