@@ -1,6 +1,5 @@
 package gr.teicm.cityguidetl.cityguidetl.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 import gr.teicm.cityguidetl.cityguidetl.Entities.OAuthResponse;
 import gr.teicm.cityguidetl.cityguidetl.R;
 import gr.teicm.cityguidetl.cityguidetl.Services.AuthenticateService;
-import gr.teicm.cityguidetl.cityguidetl.Services.CityService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,8 +54,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<OAuthResponse> call, Response<OAuthResponse> response) {
                         if(response.code() == 200) {
-                            MainActivity.access_token = response.body().getAccess_token();
-                            MainActivity.refresh_token = response.body().getRefresh_token();
+                            MainActivity.accessToken = response.body().getAccess_token();
+                            MainActivity.refreshToken = response.body().getRefresh_token();
 
                             //     response.body().getAccess_token();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);

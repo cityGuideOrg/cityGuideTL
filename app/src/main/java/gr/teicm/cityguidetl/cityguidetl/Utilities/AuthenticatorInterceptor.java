@@ -13,21 +13,21 @@ public class AuthenticatorInterceptor implements Interceptor {
 	public Response intercept(Chain chain) throws IOException {
 		Request request = chain.request()
 				.newBuilder()
-				.addHeader("Authorization", "Bearer " + MainActivity.access_token)
+				.addHeader("Authorization", "Bearer " + MainActivity.accessToken)
 				.build();
 
 		Response response = chain.proceed(request);
 
 		if(response.code() == 401) {
 
-			MainActivity.access_token = LoginActivity.authenticateService.refresh(MainActivity.refresh_token, "refresh_token")
+			MainActivity.accessToken = LoginActivity.authenticateService.refresh(MainActivity.refreshToken, "refresh_token")
 			.execute()
 			.body()
 			.getAccess_token();
 
 			response =  chain.proceed(chain.request()
 					.newBuilder()
-					.addHeader("Authorization", "Bearer " + MainActivity.access_token)
+					.addHeader("Authorization", "Bearer " + MainActivity.accessToken)
 					.build());
 		}
 

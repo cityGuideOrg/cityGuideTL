@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public static Retrofit retro;
     public static CityService cityService;
 
-    public static String access_token;
-    public static String refresh_token;
+    public static String accessToken;
+    public static String refreshToken;
 
     RecyclerView recyclerView;
 
