@@ -52,7 +52,6 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
 	public void onBindViewHolder(@NonNull PointsViewAHolder viewHolder, int index) {
 
 		Photos point = points.get(index);
-
 		viewHolder.text.setText(point.getLatitude().toString() + " " +  point.getLongitude().toString());
 
 	}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="I have visited this place already."
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/disPrev"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/disYou"
+        android:layout_marginStart="-91dp"
+        android:layout_toEndOf="@+id/disYou"
+        android:text="500m"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/disYou"
+        tools:layout_editor_absoluteX="261dp" />
+
+    <TextView
+        android:id="@+id/disYou"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="91dp"
+        android:text="500m"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintEnd_toStartOf="@+id/disPrev" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="108dp"
+        android:layout_height="35dp"
+        android:layout_above="@+id/checkBox"
+        android:layout_alignStart="@+id/checkBox"
+        android:layout_marginBottom="-50dp"
+        android:text="Distance:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/disYou"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="32dp"
+        android:layout_height="77dp"
+        android:layout_alignBottom="@+id/checkBox"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="17dp"
+        android:text="1"
+        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Button
+        android:id="@+id/buttonGo"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_alignStart="@+id/checkBox"
+        android:layout_below="@+id/checkBox"
+        android:text="Go"
+        android:textSize="12sp" />
+</RelativeLayout>

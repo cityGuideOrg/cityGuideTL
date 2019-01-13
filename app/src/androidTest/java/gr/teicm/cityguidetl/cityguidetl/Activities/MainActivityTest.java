@@ -1,18 +1,15 @@
 package gr.teicm.cityguidetl.cityguidetl.Activities;
 
 import android.os.SystemClock;
-import android.support.test.espresso.Espresso;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import androidx.test.espresso.Espresso;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 import gr.teicm.cityguidetl.cityguidetl.R;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -36,7 +33,7 @@ public class MainActivityTest {
                 .atPosition(0)
                 .perform(click());
         SystemClock.sleep(1000);
-        Espresso.onView(withId(R.id.City)).check(matches(withText(City)));
+        Espresso.onView(withId(R.id.cityNameTextView)).check(matches(withText(City)));
     }
 
 }

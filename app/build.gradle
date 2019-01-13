@@ -9,7 +9,8 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnit4"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         resValue "string", "google_maps_key",
                 (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "AIzaSyAgA7NSqFK_bFrd-2TvKs2ocqILSgEuk1g")
     }
@@ -36,15 +37,16 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
+    implementation 'com.google.maps.android:android-maps-utils:0.4+'
 
 
     // Required for local unit tests (JUnit 4 framework)
-    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'junit:junit:4.12'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
 
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test:rules:1.1.0'
     // Required for instrumented tests
     androidTestImplementation 'com.android.support:support-annotations:24.0.0'
 }

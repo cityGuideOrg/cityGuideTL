@@ -1,8 +1,12 @@
 package gr.teicm.cityguidetl.cityguidetl.Services;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import gr.teicm.cityguidetl.cityguidetl.Entities.BestRoute;
 import gr.teicm.cityguidetl.cityguidetl.Entities.City;
+import gr.teicm.cityguidetl.cityguidetl.Entities.Cost;
+import gr.teicm.cityguidetl.cityguidetl.Entities.Point;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -34,5 +38,21 @@ public interface CityService {
 	@Headers({"Accept: application/json"})
 	@GET("/flickr/{id}")
 	Call<City> getCityWithInterestingPlaces(@Path("id") long id);
+
+	@Headers({"Accept: application/json"})
+	@POST("/route")
+	Call<Cost> findBestRoute(@Body BestRoute body);
+
+	@Headers({"Accept: application/json"})
+	@POST("/visitedpoints")
+	Call<Point> addVisitedPoint(@Body Point point);
+
+	@Headers({"Accept: application/json"})
+	@DELETE("/visitedpoints/{id}")
+	Call<Void> deleteVisitedPoint(@Path("id") Integer id);
+
+	@Headers({"Accept: application/json"})
+	@GET("/visitedpoints")
+	Call<List<Point>> getVisitedPoints();
 
 }
