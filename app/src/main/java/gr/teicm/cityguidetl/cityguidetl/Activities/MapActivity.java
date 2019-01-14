@@ -395,9 +395,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 										justPoints.add(point);
 										o.position(new LatLng(photo.getLatitude(), photo.getLongitude()));
 
-										o.icon(
-												BitmapDescriptorFactory.fromBitmap(new IconGenerator(getBaseContext()).makeIcon("BLA BLA"))
-										);
+
 										allMarkers.add(googleMap.addMarker(o));
 									}
 									update();
