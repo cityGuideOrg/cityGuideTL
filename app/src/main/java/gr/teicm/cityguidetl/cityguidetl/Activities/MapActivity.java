@@ -92,8 +92,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 	//require permissions for location of user in the points activity class and get position of the user
 	//here if the permission were granted;
 
+
+	//what to test
+
+	//todo:junit the functions?
+
 	public Point findVisited(Point p) {
 		for(Point visitedPlace : visitedPlaces) {
+			//workaround to finding the point visited
 			if(  p.distance(visitedPlace) < 10) {
 				return visitedPlace;
 			}
@@ -105,6 +111,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 		return findVisited(p) != null;
 	}
 
+
+	//delete the point from persistence
 	public void deleteVisited(Point p) {
 		final Point visited = findVisited(p);
 
@@ -230,6 +238,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 						}
 					});
 
+					//listener on the go button which opens maps app to direct users
 					view.findViewById(R.id.buttonGo).setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
@@ -445,6 +454,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 		}
 	};
 
+
 	public void update() {
 		if(allMarkers.size() > 0 && finalLocation != null) {
 			BestRoute body = new BestRoute();
@@ -470,7 +480,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 				}
 			}
 			body.placesNeedsToBeVisited = notVisitedPoints;
-
+			//bestroute recalculation with new points
 			MainActivity.cityService.findBestRoute(body)
 					.enqueue(new Callback<Cost>() {
 						@Override
